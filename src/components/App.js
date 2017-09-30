@@ -2,6 +2,9 @@ import React from 'react'
 import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
 import PropTypes from 'prop-types'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 class App extends React.Component {
   static propTypes = {
@@ -15,11 +18,13 @@ class App extends React.Component {
 
   render () {
     return (
-      <Provider store={this.props.store}>
-        <div style={{ height: '100%' }}>
-          <Router history={browserHistory} children={this.props.routes} />
-        </div>
-      </Provider>
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <Provider store={this.props.store}>
+          <div style={{ height: '100%' }}>
+            <Router history={browserHistory} children={this.props.routes} />
+          </div>
+        </Provider>
+      </MuiThemeProvider>
     )
   }
 }
