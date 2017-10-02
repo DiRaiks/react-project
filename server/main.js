@@ -6,9 +6,17 @@ const webpackConfig = require('../build/webpack.config')
 const project = require('../project.config')
 const compress = require('compression')
 
+const bodyParser = require('body-parser')
+
+const registation = require('./routes/registration/registration')
+
 const app = express()
 app.use(compress())
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use('/api/registration', registation)
 // ------------------------------------
 // Apply Webpack HMR Middleware
 // ------------------------------------

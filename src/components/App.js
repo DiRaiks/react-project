@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 // import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import setCurrentUser from '../routes/Authentication/modules/authentication'
+import jwt from 'jsonwebtoken'
 
 const theme = createMuiTheme({
   palette: {
@@ -20,6 +22,12 @@ class App extends React.Component {
 
   shouldComponentUpdate () {
     return false
+  }
+  componentDidMount() {
+    if (localStorage.hardToken) {
+      // setAuthorizationToken(localStorage.hardToken);
+      this.props.store.dispatch(setCurrentUser(jwt.decode(localStorage.hardToken)))
+    }
   }
 
   render () {

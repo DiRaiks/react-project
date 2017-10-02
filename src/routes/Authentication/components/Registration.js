@@ -32,6 +32,7 @@ export class Authentication extends React.Component {
       password: '',
       verifpass: ''
     }
+    this.registration = this.registration.bind(this)
   }
 
   handleChange = name => event => {
@@ -48,6 +49,17 @@ export class Authentication extends React.Component {
       password: '',
       verifpass: ''
     })
+  }
+
+  registration(e) {
+    e.preventDefault();
+    const user = {
+      login: this.state.login,
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password
+    }
+    this.props.registrationUser(user)
   }
 
   render() {
@@ -105,7 +117,11 @@ export class Authentication extends React.Component {
           onChange={this.handleChange('verifpass')}
           required
         /><br/>
-        <Button raised color="primary" className={classes.button}>
+        <Button
+          raised
+          color="primary"
+          onClick={this.registration}
+          className={classes.button}>
           Registration
         </Button>
         <Button

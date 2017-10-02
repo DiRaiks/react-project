@@ -9,8 +9,8 @@ export default (store) => ({
     require.ensure([], (require) => {
       /*  Webpack - use require callback to define
           dependencies for bundling   */
-      const authentication = require('./containers/CounterContainer').default
-      const reducer = require('./modules/counter').default
+      const authentication = require('./containers/AuthenticationContainer').default
+      const reducer = require('./modules/authentication').default
 
       /*  Add the reducer to the store on key 'counter'  */
       injectReducer(store, { key: 'authentication', reducer })

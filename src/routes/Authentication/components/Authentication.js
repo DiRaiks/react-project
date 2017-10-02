@@ -30,7 +30,7 @@ export class Authentication extends React.Component {
     const {classes} = this.props
     return (
       <div>
-        { this.state.viewRegistration ? <Registration /> : <Login /> }
+        { this.state.viewRegistration ? <Registration registrationUser={ this.props.registrationUser }/> : <Login /> }
         <Button
           fab
           color="primary"
