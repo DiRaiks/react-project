@@ -22,6 +22,7 @@ const styles = theme => ({
   },
 })
 
+
 export class Authentication extends React.Component {
   constructor(props) {
     super(props)
@@ -37,7 +38,7 @@ export class Authentication extends React.Component {
 
   handleChange = name => event => {
     this.setState({
-      [name]: event.target.value,
+      [name]: event.target.value
     })
   }
 
@@ -51,7 +52,7 @@ export class Authentication extends React.Component {
     })
   }
 
-  registration(e) {
+  registration (e) {
     e.preventDefault();
     const user = {
       login: this.state.login,
@@ -62,7 +63,7 @@ export class Authentication extends React.Component {
     this.props.registrationUser(user)
   }
 
-  render() {
+  render () {
 
     const {classes} = this.props
 
@@ -121,6 +122,9 @@ export class Authentication extends React.Component {
           raised
           color="primary"
           onClick={this.registration}
+          disabled={!(this.state.password === this.state.verifpass) ||
+          !this.state.login || !this.state.name || !this.state.email ||
+          !this.state.password}
           className={classes.button}>
           Registration
         </Button>

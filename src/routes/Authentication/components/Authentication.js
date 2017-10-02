@@ -26,8 +26,8 @@ export class Authentication extends React.Component {
     })
   }
 
-  render() {
-    const {classes} = this.props
+  render () {
+    const { classes } = this.props
     return (
       <div>
         { this.state.viewRegistration ? <Registration registrationUser={ this.props.registrationUser }/> : <Login /> }
