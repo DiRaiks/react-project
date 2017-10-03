@@ -26,9 +26,7 @@ export class Login extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
       login: '',
-      email: '',
       password: '',
       verifpass: ''
     }
@@ -85,7 +83,12 @@ export class Login extends React.Component {
           onChange={this.handleChange('verifpass')}
           required
         /><br/>
-        <Button raised color="primary" className={classes.button}>
+        <Button
+          raised
+          color="primary"
+          disabled={!(this.state.password === this.state.verifpass) ||
+          !this.state.login || !this.state.password}
+          className={classes.button}>
           Registration
         </Button>
         <Button
