@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import TextField from 'material-ui/TextField'
 import {withStyles} from 'material-ui/styles'
 import Button from 'material-ui/Button'
+import Snackbar from 'material-ui/Snackbar'
 
 const styles = theme => ({
   container: {
@@ -20,10 +21,16 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
+  success: {
+    color: '#69F0AE'
+  },
+  fail: {
+    color: 'red'
+  }
 })
 
 
-export class Authentication extends React.Component {
+export class Registration extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -52,7 +59,7 @@ export class Authentication extends React.Component {
     })
   }
 
-  registration (e) {
+  registration(e) {
     e.preventDefault();
     const user = {
       login: this.state.login,
@@ -63,12 +70,36 @@ export class Authentication extends React.Component {
     this.props.registrationUser(user)
   }
 
-  render () {
+  render() {
 
     const {classes} = this.props
 
     return (
       <div>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.props.registration === 'SUCCESS'}
+          autoHideDuration={6000}
+          SnackbarContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span className={classes.success} id="message-id">You are Registration</span>}
+        />
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.props.registration === 'FAIL'}
+          autoHideDuration={6000}
+          SnackbarContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span className={classes.fail} id="message-id">{this.props.errorRegistration}</span>}
+        />
         <h2>Registration</h2>
         <TextField
           label='Login Field'
@@ -140,8 +171,8 @@ export class Authentication extends React.Component {
   }
 }
 
-Authentication.propTypes = {
+Registration.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(Authentication)
+export default withStyles(styles)(Registration)

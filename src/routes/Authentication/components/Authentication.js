@@ -20,24 +20,33 @@ export class Authentication extends React.Component {
     }
     this.logOrReg = this.logOrReg.bind(this)
   }
+
   logOrReg() {
     this.setState({
       viewRegistration: !this.state.viewRegistration
     })
   }
 
-  render () {
-    const { classes } = this.props
+  render() {
+    const {classes} = this.props
     return (
       <div>
-        { this.state.viewRegistration ? <Registration registrationUser={ this.props.registrationUser }/> : <Login /> }
+        {this.state.viewRegistration
+          ? <Registration
+            registration={this.props.registration}
+            errorRegistration={this.props.errorRegistration}
+            registrationUser={this.props.registrationUser}/>
+          : <Login
+            login={this.props.login}
+            errorLogin={this.props.errorLogin}
+            loginUser={this.props.loginUser}/>}
         <Button
           fab
           color="primary"
           aria-label="add"
           onClick={this.logOrReg}
           className={classes.button}>
-          <ChangeIcon />
+          <ChangeIcon/>
         </Button>
       </div>
     )

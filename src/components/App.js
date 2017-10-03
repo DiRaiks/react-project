@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 // import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import setCurrentUser from '../routes/Authentication/modules/authentication'
+import setCurrentUser from '../store/auth'
 import jwt from 'jsonwebtoken'
 
 const theme = createMuiTheme({

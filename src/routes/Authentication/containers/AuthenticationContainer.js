@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { registrationUser } from '../modules/authentication'
+import { registrationUser, loginUser } from '../modules/authentication'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -14,10 +14,15 @@ import Authentication from '../components/Authentication'
 
 const mapDispatchToProps = {
   registrationUser,
+  loginUser
 }
 
 const mapStateToProps = (state) => ({
-  authorization: state.authorization
+  auth: state.auth.Authorization,
+  login: state.authentication.login,
+  registration: state.authentication.registration,
+  errorLogin: state.authentication.errorLogin,
+  errorRegistration: state.authentication.errorRegistration
 })
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:

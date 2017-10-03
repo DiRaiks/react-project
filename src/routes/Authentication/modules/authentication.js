@@ -9,26 +9,47 @@ import jwt from 'jsonwebtoken'
 // export const COUNTER_DOUBLE_ASYNC = 'COUNTER_DOUBLE_ASYNC'
 export const REGISTRATION_USER = 'REGISTRATION_USER'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
+export const LOGIN_USER = 'LOGIN_USER'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
 export function registrationUser(user) {
   return dispatch => {
-    axios.post('/api/registration', {
-      login: user.login,
-      name: user.name,
-      email: user.email,
-      password: user.password
-    })
+    axios.post('/api/registration', user)
       .then(res => {
-        // localStorage.setItem('Token', res.data.token)
-        // setAuthorizationToken(token);
-        // dispatch(setCurrentUser(jwt.decode(res.data.token)))
-        console.log(res)
+        dispatch({
+          type: REGISTRATION_USER,
+          payload: 'SUCCESS'
+        })
       })
       .catch(err => {
-        console.log(err)
+        dispatch({
+          type: REGISTRATION_USER,
+          payload: 'FAIL',
+          error: err.response.data.message
+        })
+      })
+  }
+}
+
+export function loginUser(user) {
+  return dispatch => {
+    axios.post('/api/login', user)
+      .then(res => {
+        localStorage.setItem('Token', res.data.token)
+        dispatch(setCurrentUser(jwt.decode(res.data.token)))
+        dispatch({
+          type: LOGIN_USER,
+          payload: 'SUCCESS'
+        })
+      })
+      .catch(err => {
+        dispatch({
+          type: LOGIN_USER,
+          payload: 'FAIL',
+          error: err.response.data.message
+        })
       })
   }
 }
@@ -36,7 +57,7 @@ export function registrationUser(user) {
 export function setCurrentUser(user) {
   return {
     type: SET_CURRENT_USER,
-    payload: user
+    payload: user,
   }
 }
 
@@ -67,13 +88,23 @@ export function setCurrentUser(user) {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = {}
+const initialState = {
+  registration: false,
+  login: false,
+  errorLogin: {},
+  errorRegistration: {}
+}
 export default function counterReducer(state = initialState, action) {
-  switch (action.typr) {
-    case SET_CURRENT_USER:
+  switch (action.type) {
+    case LOGIN_USER:
       return Object.assign({}, state, {
-        Authorization: !isEmpty(action.payload),
-        user: action.payload
+        login: action.payload,
+        errorLogin: action.error
+      })
+    case REGISTRATION_USER:
+      return Object.assign({}, state, {
+        registration: action.payload,
+        errorRegistration: action.error
       })
     default:
       return state

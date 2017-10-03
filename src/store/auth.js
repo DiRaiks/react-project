@@ -2,6 +2,13 @@ import isEmpty from '../../node_modules/lodash/isEmpty'
 
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 
+export function setCurrentUser(user) {
+  return {
+    type: SET_CURRENT_USER,
+    payload: user,
+  }
+}
+
 const initialState = {
   Authorization: false,
   user: {}

@@ -4,6 +4,8 @@ import TextField from 'material-ui/TextField'
 import {withStyles} from 'material-ui/styles'
 import Button from 'material-ui/Button'
 
+import Snackbar from 'material-ui/Snackbar'
+
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -20,6 +22,12 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
+  success: {
+    color: '#69F0AE'
+  },
+  fail: {
+    color: 'red'
+  }
 })
 
 export class Login extends React.Component {
@@ -30,6 +38,7 @@ export class Login extends React.Component {
       password: '',
       verifpass: ''
     }
+    this.loginUser = this.loginUser.bind(this)
   }
 
   clearFields = () => {
@@ -46,12 +55,47 @@ export class Login extends React.Component {
     })
   }
 
+  loginUser () {
+    const user = {
+      login: this.state.login,
+      password: this.state.password
+    }
+    this.props.loginUser(user)
+  }
+
   render() {
 
     const {classes} = this.props
 
     return (
       <div>
+
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.props.login === 'SUCCESS'}
+          autoHideDuration={6000}
+          SnackbarContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span className={classes.success} id="message-id">You are Login</span>}
+        />
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.props.login === 'FAIL'}
+          autoHideDuration={6000}
+          SnackbarContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span className={classes.fail} id="message-id">{this.props.errorLogin}</span>}
+        />
+
+
         <h2>Login</h2>
         <TextField
           label='Login Field'
@@ -88,6 +132,7 @@ export class Login extends React.Component {
           color="primary"
           disabled={!(this.state.password === this.state.verifpass) ||
           !this.state.login || !this.state.password}
+          onClick={this.loginUser}
           className={classes.button}>
           Registration
         </Button>
