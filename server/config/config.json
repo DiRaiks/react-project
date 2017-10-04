@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "postgres",
-    "password": "dunice",
-    "database": "new-news-dev",
+    "password": "123",
+    "database": "db-dev",
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres"
