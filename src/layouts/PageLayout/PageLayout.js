@@ -118,8 +118,8 @@ export class PageLayout extends React.Component {
   goToHome = () => {
     browserHistory.push(`/`)
   };
-  goToNews = () => {
-    browserHistory.push(`/counter`)
+  goToWeather = () => {
+    browserHistory.push(`/weather`)
   };
   goToAuth = () => {
     browserHistory.push(`/authentication`)
@@ -169,11 +169,11 @@ export class PageLayout extends React.Component {
               </List>
               <Divider />
               <List className={classes.list}>
-                <ListItem button onClick={this.goToNews}>
+                <ListItem button onClick={this.goToWeather}>
                   <ListItemIcon>
                     <NewsIcon />
                   </ListItemIcon>
-                  <ListItemText primary='News' />
+                  <ListItemText primary='Weather' />
                 </ListItem>
               </List>
               <Divider />
@@ -182,7 +182,7 @@ export class PageLayout extends React.Component {
                   <ListItemIcon>
                     <LoginIcon />
                   </ListItemIcon>
-                  <ListItemText primary='Home' />
+                  <ListItemText primary='Registartion/Login' />
                 </ListItem>
               </List>
             </div>
