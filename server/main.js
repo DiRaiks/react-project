@@ -10,6 +10,7 @@ const bodyParser = require('body-parser')
 
 const registation = require('./routes/registration/registration')
 const login = require('./routes/login/login')
+const news = require('./routes/news/news')
 
 const app = express()
 app.use(compress())
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/api/registration', registation)
 app.use('/api/login', login)
+app.use('/api/news', news)
 // ------------------------------------
 // Apply Webpack HMR Middleware
 // ------------------------------------

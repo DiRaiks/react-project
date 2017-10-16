@@ -1,6 +1,6 @@
 
 module.exports = (sequelize, DataTypes) => {
-    const Newses = sequelize.define('Newses', {
+    const News = sequelize.define('News', {
         tag: {
             type: DataTypes.STRING,
             // allowNull: false,
@@ -21,11 +21,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         },
     });
-    Newses.associate = (models) => {
-        Newses.belongsTo(models.Author, {
+    News.associate = (models) => {
+        News.belongsTo(models.Author, {
             foreignKey: 'authorId',
             onDelete: 'CASCADE',
         });
     };
-    return Newses;
+    return News;
 };

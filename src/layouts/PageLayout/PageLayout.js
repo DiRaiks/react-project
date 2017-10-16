@@ -119,7 +119,7 @@ export class PageLayout extends React.Component {
     browserHistory.push(`/`)
   };
   goToNews = () => {
-    browserHistory.push(`/counter`)
+    browserHistory.push(`/news`)
   };
   goToAuth = () => {
     browserHistory.push(`/authentication`)
@@ -141,7 +141,7 @@ export class PageLayout extends React.Component {
                 <MenuIcon />
               </IconButton>
               <Typography type='title' color='inherit' noWrap>
-                Mini variant drawer
+                News Site
               </Typography>
             </Toolbar>
           </AppBar>
