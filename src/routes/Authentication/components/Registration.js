@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 import TextField from 'material-ui/TextField'
 import {withStyles} from 'material-ui/styles'
 import Button from 'material-ui/Button'
+
 import Snackbar from 'material-ui/Snackbar'
+import IconButton from 'material-ui/IconButton'
+import CloseIcon from 'material-ui-icons/Close'
 
 const styles = theme => ({
   container: {
@@ -38,9 +41,16 @@ export class Registration extends React.Component {
       login: '',
       email: '',
       password: '',
-      verifpass: ''
+      verifpass: '',
+      statusRegistration: ''
     }
     this.registration = this.registration.bind(this)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      statusRegistration: nextProps.registration
+    })
   }
 
   handleChange = name => event => {
@@ -68,6 +78,19 @@ export class Registration extends React.Component {
       password: this.state.password
     }
     this.props.registrationUser(user)
+
+    this.setState({
+      statusRegistration: this.props.registration
+    })
+  }
+
+  handleRequestClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    this.setState({
+      statusRegistration: false
+    })
   }
 
   render() {
@@ -81,24 +104,48 @@ export class Registration extends React.Component {
             vertical: 'bottom',
             horizontal: 'left',
           }}
-          open={this.props.registration === 'SUCCESS'}
+          open={this.state.statusRegistration === 'SUCCESS'}
           autoHideDuration={6000}
+          onRequestClose={this.handleRequestClose}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
           }}
           message={<span className={classes.success} id="message-id">You are Registration</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.close}
+              onClick={this.handleRequestClose}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
         />
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
           }}
-          open={this.props.registration === 'FAIL'}
-          autoHideDuration={6000}
+          open={this.state.statusRegistration === 'FAIL'}
+          autoHideDuration={3000}
+          onRequestClose={this.handleRequestClose}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
           }}
           message={<span className={classes.fail} id="message-id">{this.props.errorRegistration}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.close}
+              onClick={this.handleRequestClose}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
         />
         <h2>Registration</h2>
         <TextField

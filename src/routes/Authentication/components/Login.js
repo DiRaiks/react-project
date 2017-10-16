@@ -5,6 +5,8 @@ import {withStyles} from 'material-ui/styles'
 import Button from 'material-ui/Button'
 
 import Snackbar from 'material-ui/Snackbar'
+import IconButton from 'material-ui/IconButton'
+import CloseIcon from 'material-ui-icons/Close'
 
 const styles = theme => ({
   container: {
@@ -36,9 +38,16 @@ export class Login extends React.Component {
     this.state = {
       login: '',
       password: '',
-      verifpass: ''
+      verifpass: '',
+      statusLogin: ''
     }
     this.loginUser = this.loginUser.bind(this)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      statusLogin: nextProps.login
+    })
   }
 
   clearFields = () => {
@@ -61,6 +70,18 @@ export class Login extends React.Component {
       password: this.state.password
     }
     this.props.loginUser(user)
+    this.setState({
+      statusLogin: this.props.login
+    })
+  }
+
+  handleRequestClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    this.setState({
+      statusLogin: false
+    })
   }
 
   render() {
@@ -75,24 +96,48 @@ export class Login extends React.Component {
             vertical: 'bottom',
             horizontal: 'left',
           }}
-          open={this.props.login === 'SUCCESS'}
-          autoHideDuration={6000}
+          open={this.state.statusLogin === 'SUCCESS'}
+          autoHideDuration={3000}
+          onRequestClose={this.handleRequestClose}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
           }}
           message={<span className={classes.success} id="message-id">You are Login</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.close}
+              onClick={this.handleRequestClose}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
         />
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
           }}
-          open={this.props.login === 'FAIL'}
-          autoHideDuration={6000}
+          open={this.state.statusLogin === 'FAIL'}
+          autoHideDuration={3000}
+          onRequestClose={this.handleRequestClose}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
           }}
           message={<span className={classes.fail} id="message-id">{this.props.errorLogin}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.close}
+              onClick={this.handleRequestClose}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
         />
 
 
