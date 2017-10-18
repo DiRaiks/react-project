@@ -1,16 +1,23 @@
 import React from 'react'
+import InputCity from './inputCity'
+import ViewWeather from './ViewWeather'
 import PropTypes from 'prop-types'
 
 export class Weather extends React.Component {
-  render () {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
     return (
-      <div></div>
+      <div>
+        <InputCity searchCity={this.props.searchCity} />
+        <ViewWeather infoCity={this.props.infoCity} />
+      </div>
     )
   }
 }
 
-Weather.propTypes = {
-
-}
+Weather.propTypes = {}
 
 export default Weather

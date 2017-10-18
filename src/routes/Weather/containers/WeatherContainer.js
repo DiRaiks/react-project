@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import {  } from '../modules/counter'
+import { searchCity  } from '../modules/weather'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -13,13 +13,12 @@ import Weather from '../components/Weather'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = {
-
+  searchCity,
 }
 
 const mapStateToProps = (state) => ({
-
+  infoCity: state.weather.infoCity
 })
-
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Weather)
