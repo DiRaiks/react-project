@@ -1,6 +1,7 @@
 import React from 'react'
 import InputCity from './inputCity'
 import ViewWeather from './ViewWeather'
+import GoogleMapCity from './GoogleMaps'
 import PropTypes from 'prop-types'
 
 export class Weather extends React.Component {
@@ -9,10 +10,17 @@ export class Weather extends React.Component {
   }
 
   render() {
+    let statusWeather = this.props.infoCity.weather
+    const view = (
+      <div>
+        <ViewWeather infoCity={this.props.infoCity}/>
+        <GoogleMapCity coord={this.props.infoCity.coord}/>
+      </div>
+    )
     return (
       <div>
-        <InputCity searchCity={this.props.searchCity} />
-        <ViewWeather infoCity={this.props.infoCity} />
+        <InputCity searchCity={this.props.searchCity}/>
+        {statusWeather ? view : ''}
       </div>
     )
   }
