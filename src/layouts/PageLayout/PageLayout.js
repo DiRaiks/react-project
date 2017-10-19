@@ -17,6 +17,7 @@ import ChevronLeftIcon from 'material-ui-icons/ChevronLeft'
 import HomeIcon from 'material-ui-icons/Home'
 import NewsIcon from 'material-ui-icons/Dvr'
 import LoginIcon from 'material-ui-icons/Input'
+import LogoutIcon from 'material-ui-icons/LabelOutline'
 
 const drawerWidth = 240;
 
@@ -104,15 +105,17 @@ export class PageLayout extends React.Component {
     super(props)
     this.state = {
       open: false,
+      auth: false
     }
+    // this.changeAuth = this.changeAuth.bind(this)
   }
 
   handleDrawerOpen = () => {
-    this.setState({ open: true })
+    this.setState({open: true})
   };
 
   handleDrawerClose = () => {
-    this.setState({ open: false })
+    this.setState({open: false})
   };
 
   goToHome = () => {
@@ -124,9 +127,34 @@ export class PageLayout extends React.Component {
   goToAuth = () => {
     browserHistory.push(`/authentication`)
   };
+  logOut = () => {
+    localStorage.removeItem('Token')
+    browserHistory.push(`/authentication`)
+  }
 
-  render () {
-    const { classes } = this.props
+  render() {
+    const {classes} = this.props
+
+    let statusAuth = false
+    if (localStorage.getItem('Token')) {
+      statusAuth = true
+    }
+    const authButton = (
+      <ListItem button onClick={this.goToAuth}>
+        <ListItemIcon>
+          <LoginIcon/>
+        </ListItemIcon>
+        <ListItemText primary='Registartion/Login'/>
+      </ListItem>
+    )
+    const logoutButton = (
+      <ListItem button onClick={this.logOut}>
+        <ListItemIcon>
+          <LogoutIcon/>
+        </ListItemIcon>
+        <ListItemText primary='Logout'/>
+      </ListItem>
+    )
     return (
       <div className={classes.root}>
         <div className={classes.appFrame}>
@@ -138,10 +166,10 @@ export class PageLayout extends React.Component {
                 onClick={this.handleDrawerOpen}
                 className={classNames(classes.menuButton, this.state.open && classes.hide)}
               >
-                <MenuIcon />
+                <MenuIcon/>
               </IconButton>
               <Typography type='title' color='inherit' noWrap>
-                Mini variant drawer
+                Weather
               </Typography>
             </Toolbar>
           </AppBar>
@@ -155,42 +183,37 @@ export class PageLayout extends React.Component {
             <div className={classes.drawerInner}>
               <div className={classes.drawerHeader}>
                 <IconButton onClick={this.handleDrawerClose}>
-                  <ChevronLeftIcon />
+                  <ChevronLeftIcon/>
                 </IconButton>
               </div>
-              <Divider />
+              <Divider/>
               <List className={classes.list}>
                 <ListItem button onClick={this.goToHome}>
                   <ListItemIcon>
-                    <HomeIcon />
+                    <HomeIcon/>
                   </ListItemIcon>
-                  <ListItemText primary='Home' />
+                  <ListItemText primary='Home'/>
                 </ListItem>
               </List>
-              <Divider />
+              <Divider/>
               <List className={classes.list}>
                 <ListItem button onClick={this.goToWeather}>
                   <ListItemIcon>
-                    <NewsIcon />
+                    <NewsIcon/>
                   </ListItemIcon>
-                  <ListItemText primary='Weather' />
+                  <ListItemText primary='Weather'/>
                 </ListItem>
               </List>
-              <Divider />
+              <Divider/>
               <List className={classes.list}>
-                <ListItem button onClick={this.goToAuth}>
-                  <ListItemIcon>
-                    <LoginIcon />
-                  </ListItemIcon>
-                  <ListItemText primary='Registartion/Login' />
-                </ListItem>
+                {statusAuth ? logoutButton : authButton}
               </List>
             </div>
           </Drawer>
           <main className={classes.content}>
             <Typography type='body1' noWrap>
               <div className='page-layout__viewport'>
-                { this.props.children }
+                {this.props.children}
               </div>
             </Typography>
           </main>

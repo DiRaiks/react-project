@@ -44,10 +44,13 @@ export class Login extends React.Component {
     this.loginUser = this.loginUser.bind(this)
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setState({
       statusLogin: nextProps.login
     })
+    if (nextProps.auth) {
+      this.props.changeLocation()
+    }
   }
 
   clearFields = () => {
@@ -69,10 +72,13 @@ export class Login extends React.Component {
       login: this.state.login,
       password: this.state.password
     }
+
     this.props.loginUser(user)
+
     this.setState({
       statusLogin: this.props.login
     })
+
   }
 
   handleRequestClose = (event, reason) => {
@@ -111,7 +117,7 @@ export class Login extends React.Component {
               className={classes.close}
               onClick={this.handleRequestClose}
             >
-              <CloseIcon />
+              <CloseIcon/>
             </IconButton>,
           ]}
         />
@@ -135,7 +141,7 @@ export class Login extends React.Component {
               className={classes.close}
               onClick={this.handleRequestClose}
             >
-              <CloseIcon />
+              <CloseIcon/>
             </IconButton>,
           ]}
         />

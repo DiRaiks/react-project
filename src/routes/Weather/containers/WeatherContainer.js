@@ -8,7 +8,9 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = (state) => ({
-  infoCity: state.weather.infoCity
+  infoCity: state.weather.infoCity,
+  user: state.auth.user,
+  auth: state.auth.Authorization
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Weather)

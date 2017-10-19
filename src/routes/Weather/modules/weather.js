@@ -32,6 +32,26 @@ export const searchCity = (cityName) => {
   }
 }
 
+// export const createPost = (id, text) => {
+//   return (dispatch) => {
+//     return new Promise(resolve => {
+//       axios(,{id: id, text: text})
+//         .then(res => {
+//           console.log(res)
+//           // dispatch({
+//           //   type: SEARCH_CITY,
+//           //   payload: res.data
+//           // })
+//           resolve()
+//         })
+//         .catch(err => {
+//           console.log(err)
+//           resolve()
+//         })
+//     })
+//   }
+// }
+
 const initialState = {
   infoCity: {}
 }

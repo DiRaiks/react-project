@@ -10,6 +10,7 @@ import jwt from 'jsonwebtoken'
 export const REGISTRATION_USER = 'REGISTRATION_USER'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const LOGIN_USER = 'LOGIN_USER'
+export const CHANGE_AUTH_STATUS = 'CHANGE_AUTH_STATUS'
 
 // ------------------------------------
 // Actions
@@ -58,6 +59,13 @@ export function setCurrentUser(user) {
   return {
     type: SET_CURRENT_USER,
     payload: user,
+  }
+}
+
+export function changeAuthStatus() {
+  return {
+    type: CHANGE_AUTH_STATUS,
+    payload: false
   }
 }
 
