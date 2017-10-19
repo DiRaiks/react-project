@@ -179,7 +179,7 @@ export class Login extends React.Component {
           !this.state.login || !this.state.password}
           onClick={this.loginUser}
           className={classes.button}>
-          Registration
+          Login
         </Button>
         <Button
           raised

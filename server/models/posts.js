@@ -5,6 +5,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             // allowNull: false,
         },
+        city: {
+            type: DataTypes.STRING,
+        },
         theme: {
             type: DataTypes.STRING,
             // allowNull: false,
@@ -17,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             // allowNull: false,
         },
-        newsImage: {
+        postImage: {
             type: DataTypes.STRING
         },
     });

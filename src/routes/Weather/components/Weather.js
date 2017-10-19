@@ -14,7 +14,9 @@ export class Weather extends React.Component {
     const view = (
       <div>
         <ViewWeather infoCity={this.props.infoCity}/>
-        <GoogleMapCity coord={this.props.infoCity.coord}/>
+        <div style={{width: '100%', height: '300px'}}>
+          <GoogleMapCity coord={this.props.infoCity.coord}/>
+        </div>
       </div>
     )
     return (
