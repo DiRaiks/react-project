@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { registrationUser, loginUser } from '../modules/authentication'
+import { registrationUser, loginUser, changeAuthStatus } from '../modules/authentication'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -14,7 +14,8 @@ import Authentication from '../components/Authentication'
 
 const mapDispatchToProps = {
   registrationUser,
-  loginUser
+  loginUser,
+  changeAuthStatus
 }
 
 const mapStateToProps = (state) => ({

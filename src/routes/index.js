@@ -3,7 +3,7 @@ import CoreLayout from '../layouts/PageLayout/PageLayout'
 import Home from './Home'
 import CounterRoute from './Counter'
 import Authentication from './Authentication'
-import News from './News'
+import Weather from './Weather'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -15,7 +15,7 @@ export const createRoutes = (store) => ({
   childRoutes : [
     CounterRoute(store),
     Authentication(store),
-    News(store)
+    Weather(store)
   ]
 })
 

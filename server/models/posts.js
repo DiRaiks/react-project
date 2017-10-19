@@ -1,37 +1,34 @@
 
 module.exports = (sequelize, DataTypes) => {
-    const Author = sequelize.define('Author', {
-        login: {
+    const Posts = sequelize.define('Posts', {
+        tag: {
             type: DataTypes.STRING,
             // allowNull: false,
         },
-        name: {
+        city: {
+            type: DataTypes.STRING,
+        },
+        theme: {
             type: DataTypes.STRING,
             // allowNull: false,
         },
-        password: {
+        author: {
             type: DataTypes.STRING,
             // allowNull: false,
         },
-        email: {
+        text: {
             type: DataTypes.STRING,
             // allowNull: false,
         },
-        avatar: {
-            type: DataTypes.STRING,
+        postImage: {
+            type: DataTypes.STRING
         },
-        googleId: {
-            type: DataTypes.NUMERIC,
-        },
-        vkId: {
-            type: DataTypes.NUMERIC,
-        }
     });
-    Author.associate = (models) => {
-        Author.hasMany(models.Posts, {
+  Posts.associate = (models) => {
+      Posts.belongsTo(models.Author, {
             foreignKey: 'authorId',
-            as: 'posts',
+            onDelete: 'CASCADE',
         });
     };
-    return Author;
+    return Posts;
 };

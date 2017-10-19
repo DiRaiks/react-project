@@ -19,12 +19,28 @@ export class Authentication extends React.Component {
       viewRegistration: true
     }
     this.logOrReg = this.logOrReg.bind(this)
+    this.changeLocation = this.changeLocation.bind(this)
+    this.changeAuthStatus = this.changeAuthStatus.bind(this)
+  }
+
+  componentDidMount() {
+    if (!localStorage.getItem('Token')) {
+      this.changeAuthStatus()
+    }
   }
 
   logOrReg() {
     this.setState({
       viewRegistration: !this.state.viewRegistration
     })
+  }
+
+  changeLocation() {
+    this.props.router.push('/weather')
+  }
+
+  changeAuthStatus() {
+    this.props.changeAuthStatus()
   }
 
   render() {
@@ -39,7 +55,10 @@ export class Authentication extends React.Component {
           : <Login
             login={this.props.login}
             errorLogin={this.props.errorLogin}
-            loginUser={this.props.loginUser}/>}
+            loginUser={this.props.loginUser}
+            changeLocation={this.changeLocation}
+            auth={this.props.auth}
+          />}
         <Button
           fab
           color="primary"
