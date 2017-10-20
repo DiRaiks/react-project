@@ -1,6 +1,7 @@
 import isEmpty from 'lodash/isEmpty'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
+import { setCurrentUser } from '../../../store/auth'
 
 // ------------------------------------
 // Constants
@@ -8,7 +9,6 @@ import jwt from 'jsonwebtoken'
 // export const COUNTER_INCREMENT = 'COUNTER_INCREMENT'
 // export const COUNTER_DOUBLE_ASYNC = 'COUNTER_DOUBLE_ASYNC'
 export const REGISTRATION_USER = 'REGISTRATION_USER'
-export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const LOGIN_USER = 'LOGIN_USER'
 export const CHANGE_AUTH_STATUS = 'CHANGE_AUTH_STATUS'
 
@@ -55,43 +55,12 @@ export function loginUser(user) {
   }
 }
 
-export function setCurrentUser(user) {
-  return {
-    type: SET_CURRENT_USER,
-    payload: user,
-  }
-}
-
 export function changeAuthStatus() {
   return {
     type: CHANGE_AUTH_STATUS,
     payload: false
   }
 }
-
-/*  This is a thunk, meaning it is a function that immediately
-    returns a function for lazy evaluation. It is incredibly useful for
-    creating async actions, especially when combined with redux-thunk! */
-
-// export const doubleAsync = () => {
-//   return (dispatch, getState) => {
-//     return new Promise((resolve) => {
-//       setTimeout(() => {
-//         dispatch({
-//           type    : COUNTER_DOUBLE_ASYNC,
-//           payload : getState().counter
-//         })
-//         resolve()
-//       }, 200)
-//     })
-//   }
-// }
-
-
-// ------------------------------------
-// Action Handlers
-// ------------------------------------
-
 
 // ------------------------------------
 // Reducer
@@ -102,7 +71,7 @@ const initialState = {
   errorLogin: {},
   errorRegistration: {}
 }
-export default function counterReducer(state = initialState, action) {
+export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_USER:
       return Object.assign({}, state, {

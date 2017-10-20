@@ -1,33 +1,30 @@
 const Posts = require('../../models').Posts
-// const jwt = require('jsonwebtoken')
-// const bcrypt = require('bcrypt')
 
-const config = require('../../tokenSecret')
 
 module.exports = {
   create(req, res) {
+    console.log(req.body)
     return Posts
       .create({
-        login: req.body.login,
-        name: req.body.name,
-        password: bcrypt.hashSync(req.body.password, 10),
-        email: req.body.email,
-        avatar: null
+        author: req.body.author,
+        text: req.body.text,
+        city: req.body.city,
+        authorId: req.body.authorId,
+        postImage: null
       })
-      .then(registr => res.status(201).send(registr))
+      .then(post => res.status(200).send(post))
       .catch(error => res.status(400).send(error))
   },
-  // list(req, res) {
-  //   return Author
-  //     .findAll({
-  //       include: [{
-  //         model: Newses,
-  //         as: 'newses',
-  //       }]
-  //     })
-  //     .then(news => res.status(200).send(news))
-  //     .catch(error => res.status(400).send(error));
-  // },
+  list(req, res) {
+    return Posts
+      .findAll({
+        where: {
+          city: req.params.city
+        }
+      })
+      .then(news => res.status(200).send(news))
+      .catch(error => res.status(400).send(error));
+  },
   // login(req, res) {
   //   return Author
   //     .findOne({

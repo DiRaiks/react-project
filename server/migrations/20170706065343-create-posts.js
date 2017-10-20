@@ -8,12 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      tag: {
-        type: Sequelize.STRING
-      },
-      theme: {
-        type: Sequelize.STRING
-      },
       author: {
         type: Sequelize.STRING
       },

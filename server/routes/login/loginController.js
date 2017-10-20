@@ -28,7 +28,7 @@ module.exports = {
           if (bcrypt.compareSync(req.body.password, user.password)) {
             const token = jwt.sign({
               id: user.id,
-              username: user.surname
+              login: user.login
             }, config.jwtSecret)
             return res.send({ token })
           } else {

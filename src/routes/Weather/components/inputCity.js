@@ -17,6 +17,7 @@ export class InputCity extends React.Component {
   }
 
   searchCity() {
+    this.props.saveCity(this.state.cityName)
     this.props.searchCity(this.state.cityName)
   }
 

@@ -18,7 +18,7 @@ export class Post extends React.Component {
 
   createPost(e) {
     e.preventDefault()
-    console.log('create', this.props.userId)
+    this.props.createPost(this.props.user, this.state.text, this.props.cityName)
   }
 
   render() {
