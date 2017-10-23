@@ -6,8 +6,8 @@ import Post from './Post'
 import AllPosts from './allPosts'
 import PropTypes from 'prop-types'
 
-import { withStyles } from 'material-ui/styles';
-import BottomNavigation, { BottomNavigationButton } from 'material-ui/BottomNavigation';
+import {withStyles} from 'material-ui/styles';
+import BottomNavigation, {BottomNavigationButton} from 'material-ui/BottomNavigation';
 import RestoreIcon from 'material-ui-icons/Restore';
 import FavoriteIcon from 'material-ui-icons/Favorite';
 import LocationOnIcon from 'material-ui-icons/LocationOn';
@@ -37,61 +37,80 @@ export class Weather extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-
-    console.log('trigger', nextProps)
-    this.setState({
-      postsArray: nextProps.posts.map((item) => {
-        console.log(item)
-        return (
-          <div key={item.id}>
-            <AllPosts posts={item}/>
-          </div>
-        )
-      })
-    })
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.posts) {
+  //     console.log('trigger', nextProps)
+  //     this.setState({
+  //       postsArray: nextProps.posts.map((item) => {
+  //         console.log(item)
+  //         return (
+  //           <div key={item.id}>
+  //             <AllPosts posts={item}/>
+  //           </div>
+  //         )
+  //       })
+  //     })
+  //   }
+  // }
 
   handleChange = (event, value) => {
-    this.setState({ value });
+    this.setState({value});
+    this.props.getPosts(this.state.cityName)
   };
 
   saveCity(city) {
     this.setState({
       cityName: city
     })
-    this.props.getPosts(city)
   }
 
   render() {
+    let data = this.props.posts
+    console.log(data)
+    let postsArray = data.map((item) => {
+      console.log(item)
+      return (
+        <div key={item.id}>
+          <AllPosts posts={item}/>
+        </div>
+      )
+    })
 
-    const { classes } = this.props;
-    const { value } = this.state;
+    const {classes} = this.props;
+    const {value} = this.state;
 
     let statusWeather = this.props.infoCity.weather
+    const map = (
+      <div style={{width: '100%', height: '300px'}}>
+        <GoogleMapCity coord={this.props.infoCity.coord}/>
+      </div>
+    )
+    const addPost = (
+      <Post createPost={this.props.createPost} cityName={this.state.cityName} user={this.props.user}/>
+    )
     const view = (
       <div>
         <ViewWeather infoCity={this.props.infoCity}/>
-        <div style={{width: '100%', height: '300px'}}>
-          <GoogleMapCity coord={this.props.infoCity.coord}/>
-        </div>
-        <Post createPost={this.props.createPost} cityName={this.state.cityName} user={this.props.user}/>
+        {this.state.value === 0 ? map
+          : this.state.value === 1 ? postsArray
+            : this.state.value === 2 ? addPost
+              : []}
       </div>
     )
     return (
       <div>
         <InputCity saveCity={this.saveCity} searchCity={this.props.searchCity}/>
         {statusWeather ? view : ''}
-        {this.state.postsArray}
         <BottomNavigation
           value={value}
           onChange={this.handleChange}
           showLabels
           className={classes.root}
         >
-          <BottomNavigationButton label="Map" icon={<RestoreIcon />} />
-          <BottomNavigationButton label="Posts" icon={<FavoriteIcon />} />
-          <BottomNavigationButton label="Add Post" icon={<LocationOnIcon />} />
+
+          <BottomNavigationButton label="Map" icon={<RestoreIcon/>}/>
+          <BottomNavigationButton label="Posts" icon={<FavoriteIcon/>}/>
+          <BottomNavigationButton label="Add Post" icon={<LocationOnIcon/>}/>
         </BottomNavigation>
       </div>
     )

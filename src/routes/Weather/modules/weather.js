@@ -80,7 +80,7 @@ export const getPosts = (city) => {
 
 const initialState = {
   infoCity: {},
-  posts: {}
+  posts: []
 }
 export default function counterReducer(state = initialState, action) {
   switch (action.type) {

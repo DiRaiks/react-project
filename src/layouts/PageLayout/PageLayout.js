@@ -211,11 +211,11 @@ export class PageLayout extends React.Component {
             </div>
           </Drawer>
           <main className={classes.content}>
-            <Typography type='body1' noWrap>
+            {/*<Typography type='body1' noWrap>*/}
               <div className='page-layout__viewport'>
                 {this.props.children}
               </div>
-            </Typography>
+            {/*</Typography>*/}
           </main>
         </div>
       </div>
